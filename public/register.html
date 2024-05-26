@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Register</title>
+		<link rel="stylesheet" href="css/styles.css" />
+	</head>
+	<body class="formbody">
+		<h1>Register</h1>
+		<form id="registerForm">
+			<label for="firstName">First Name:</label>
+			<input type="text" id="firstName" name="firstName" required />
+			<br />
+			<label for="lastName">Last Name:</label>
+			<input type="text" id="lastName" name="lastName" required />
+			<br />
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required />
+			<br />
+			<label for="phoneNumber">Phone Number:</label>
+			<input type="text" id="phoneNumber" name="phoneNumber" required />
+			<br />
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required />
+			<br />
+			<label for="role">Role:</label>
+			<select id="role" name="role">
+				<option value="seller">Seller</option>
+				<option value="buyer">Buyer</option>
+			</select>
+			<br />
+			<button type="submit">Register</button>
+		</form>
+		<p>Already have an account? <a href="login.html">Login here</a></p>
+
+		<script>
+			registerForm.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				const user = {
+					firstName: registerForm.firstName.value,
+					lastName: registerForm.lastName.value,
+					email: registerForm.email.value,
+					phoneNumber: registerForm.phoneNumber.value,
+					password: registerForm.password.value,
+					role: registerForm.role.value,
+				};
+
+				const res = await fetch("/api/auth/register", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(user),
+				});
+
+				const data = await res.json();
+				if (data.message) {
+					window.location.href = "login.html";
+				} else {
+					alert(data.message);
+				}
+			});
+		</script>
+	</body>
+</html>
