@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+require("dotenv").config();
+
 const authRoutes = require("./routes/auth");
 const propertyRoutes = require("./routes/properties");
 const userRoutes = require("./routes/users");
@@ -23,8 +25,7 @@ app.use((req, res, next) => {
 });
 
 // Connect to MongoDB
-mongoose
-	.connect("mongodb://127.0.0.1:27017/propertyDB")
+mongoose.connect("mongodb+srv://harrysaif675:sellerbuyer@clustersellerbuyer.8nj7us7.mongodb.net/ClusterSellerBuyer?retryWrites=true&w=majority")
 	.then(() => console.log("MongoDB connected"))
 	.catch((err) => console.log(err));
 
